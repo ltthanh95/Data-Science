@@ -1,0 +1,9 @@
+pyspark
+streamlit
+pandas
+plotly
+pycountry
+numpy
+matplotlib
+seaborn
+ydata-profiling
