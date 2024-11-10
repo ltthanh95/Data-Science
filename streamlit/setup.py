@@ -2,7 +2,7 @@ import pyspark
 import streamlit as st
 import pandas as pd
 from pyspark.sql import SparkSession
-
+from pyspark import SparkConf
 
 class Session:
     def __init__(self):
@@ -10,12 +10,14 @@ class Session:
         @st.cache_resource
         def create_spark_session():
             try:
-                spark = SparkSession.builder \
-                    .master("local[*]") \
-                    .appName("Climate Change Prediction") \
-                    .config("spark.driver.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
-                    .config("spark.executor.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
-                    .getOrCreate()
+                # spark = SparkSession.builder \
+                #     .master("local[*]") \
+                #     .appName("Climate Change Prediction") \
+                #     .config("spark.driver.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
+                #     .config("spark.executor.extraJavaOptions", "-Dio.netty.tryReflectionSetAccessible=true") \
+                #     .getOrCreate()
+                conf = SparkConf().setAppName("lecture-lyon2").setMaster("local")
+                spark = SparkSession.builder.config(conf=conf).getOrCreate()
                 return spark
             except Exception as e:
                 st.error(f"Error initializing Spark: {e}")
